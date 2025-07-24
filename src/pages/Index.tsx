@@ -43,7 +43,7 @@ const topSeries = [
 
 const stats = [
   {
-    label: "Volumes Read",
+    label: "Volumes Owned",
     value: "1,247",
     icon: BookOpen,
     color: "text-primary",
@@ -90,7 +90,7 @@ export default function Home() {
         {/* Stats Cards */}
         <div
           className={`grid ${
-            isMobile ? "grid-cols-3 gap-3" : "grid-cols-4 gap-6"
+            isMobile ? "grid-cols-2 gap-3" : "grid-cols-4 gap-6"
           }`}
         >
           {stats.map(({ label, value, icon: Icon, color }) => (
@@ -115,13 +115,26 @@ export default function Home() {
               </div>
             </div>
           ))}
-          {!isMobile && (
-            <div className="mobile-card p-6 text-center">
-              <Award className="w-8 h-8 mx-auto mb-2 text-manga-accent" />
-              <div className="text-2xl font-bold">Level 12</div>
-              <div className="text-sm text-muted-foreground">Current Level</div>
+
+          <div
+            className={`mobile-card ${isMobile ? "p-4" : "p-6"} text-center`}
+          >
+            <Award
+              className={`${
+                isMobile ? "w-6 h-6" : "w-8 h-8"
+              } mx-auto mb-2 text-manga-accent`}
+            />
+            <div className={`${isMobile ? "text-lg" : "text-2xl"} font-bold`}>
+              Level 12
             </div>
-          )}
+            <div
+              className={`${
+                isMobile ? "text-xs" : "text-sm"
+              } text-muted-foreground`}
+            >
+              Current Level
+            </div>
+          </div>
         </div>
 
         {/* Main Content Grid */}
@@ -143,7 +156,7 @@ export default function Home() {
               </Button>
             </div>
 
-            <div className="manga-shelf">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {recentlyRead.map((manga, index) => (
                 <MangaCard key={index} {...manga} />
               ))}

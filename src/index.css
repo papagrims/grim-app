@@ -121,11 +121,6 @@
     transform: translateY(1px);
   }
 
-  .manga-shelf {
-    @apply grid gap-4 p-4;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .manga-cover {
     @apply aspect-[3/4] rounded-lg overflow-hidden relative;
     background: var(--gradient-card);
