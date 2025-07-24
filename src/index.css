@@ -15,9 +15,9 @@
     --popover: 240 10% 5.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 263 85% 65%;
+    --primary: 218 72% 50%; /*263 85% 65%;*/
     --primary-foreground: 240 10% 3.9%;
-    --primary-glow: 263 85% 75%;
+    --primary-glow: 218 72% 80%; /*/*263 85% 75%;*/
 
     --secondary: 240 8% 12%;
     --secondary-foreground: 0 0% 98%;
@@ -105,7 +105,7 @@
   /* Clean up old bottom nav styles - now using floating design */
 
   .gradient-text {
-    background: var(--gradient-hero);
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -113,7 +113,7 @@
 
   .ios-button {
     @apply relative overflow-hidden rounded-xl font-medium transition-all duration-200;
-    background: var(--gradient-primary);
+    background: var(--primary);
     transform: translateY(0);
   }
 

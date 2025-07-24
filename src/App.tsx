@@ -23,11 +23,7 @@ const AppContent = () => {
     <div className="relative min-h-screen">
       {!isMobile && <TopNav />}
 
-      <div
-        className={`${!isMobile ? "max-w-7xl mx-auto" : ""} ${
-          isMobile ? "pb-20" : "md:px-6 lg:px-8"
-        }`}
-      >
+      <div className={`${!isMobile ? "" : ""} ${isMobile ? "pb-20" : ""}`}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/shelves" element={<Shelves />} />
