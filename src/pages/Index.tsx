@@ -80,7 +80,7 @@ export default function Home() {
       >
         {!isMobile && (
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Welcome back, Reader!</h1>
+            <h1 className="text-3xl font-bold mb-2">Welcome back, Bradley!</h1>
             <p className="text-muted-foreground text-lg">
               Ready to continue your manga journey?
             </p>
@@ -136,7 +136,7 @@ export default function Home() {
               <h2
                 className={`${isMobile ? "text-lg" : "text-xl"} font-semibold`}
               >
-                Continue Reading
+                Currently Reading
               </h2>
               <Button variant="ghost" size="sm" className="text-primary">
                 View All

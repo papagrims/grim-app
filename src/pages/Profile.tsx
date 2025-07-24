@@ -73,17 +73,17 @@ export default function Profile() {
               isMobile ? "text-2xl" : "text-3xl"
             } font-bold`}
           >
-            R
+            G
           </div>
           <h2 className={`${isMobile ? "text-xl" : "text-2xl"} font-bold mb-1`}>
-            Reader_Pro
+            @Grimsabr
           </h2>
           <p
             className={`text-muted-foreground mb-4 ${
               isMobile ? "text-base" : "text-lg"
             }`}
           >
-            Manga Enthusiast • Level 15
+            Boss Man • Level 15
           </p>
 
           <div className="flex items-center justify-center gap-4 mb-4">
