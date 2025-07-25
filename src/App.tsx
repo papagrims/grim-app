@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { BottomNav } from "@/components/BottomNav/BottomNav";
 import { TopNav } from "@/components/TopNav/TopNav";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -19,9 +19,14 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const isMobile = useIsMobile();
 
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const hideNav = pathname === "/signin" || pathname === "/signup";
+
   return (
     <div className="relative min-h-screen">
-      {!isMobile && <TopNav />}
+      {!isMobile && !hideNav && <TopNav />}
 
       <div className={`${!isMobile ? "" : ""} ${isMobile ? "pb-20" : ""}`}>
         <Routes>
@@ -64,7 +69,7 @@ const AppContent = () => {
         </Routes>
       </div>
 
-      {isMobile && <BottomNav />}
+      {isMobile && !hideNav && <BottomNav />}
     </div>
   );
 };

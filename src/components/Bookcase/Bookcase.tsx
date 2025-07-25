@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Settings, Plus } from "lucide-react";
+import { Settings, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MangaCard } from "@/components/MangaCard";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 interface BookcaseShelf {
@@ -31,15 +29,10 @@ interface BookcaseProps {
 }
 
 const SHELF_HEIGHT = "h-32";
-const MANGA_SLOTS_PER_SHELF_MOBILE = 6;
-const MANGA_SLOTS_PER_SHELF_DESKTOP = 8;
 
 export const Bookcase = ({ bookcase, isActive, onEdit }: BookcaseProps) => {
   const isMobile = useIsMobile();
   const maxShelves = isMobile ? 4 : 5;
-  const slotsPerShelf = isMobile
-    ? MANGA_SLOTS_PER_SHELF_MOBILE
-    : MANGA_SLOTS_PER_SHELF_DESKTOP;
 
   return (
     <div
