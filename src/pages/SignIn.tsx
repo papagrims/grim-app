@@ -182,17 +182,6 @@ export const SignIn = () => {
             </AuthButton>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-4 p-3 bg-muted rounded-lg text-sm">
-            <p className="font-medium text-muted-foreground mb-1">
-              Demo Credentials:
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Email: demo@example.com
-            </p>
-            <p className="text-xs text-muted-foreground">Password: demo123</p>
-          </div>
-
           <div className="text-center text-sm">
             <span className="text-muted-foreground">
               Don't have an account?{" "}

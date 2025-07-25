@@ -109,7 +109,7 @@ export const SignUp = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted">
-      <Card className="w-full max-w-md">
+      <Card className="!rounded-none !border-none !bg-[transparent] !shadow-none w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Create account</CardTitle>
           <CardDescription>
