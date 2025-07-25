@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
 interface AuthButtonProps {
-  onClick: () => void;
+  type?: "submit" | "reset" | "button";
+  onClick?: () => void;
   isLoading: boolean;
   disabled?: boolean;
   variant?:
@@ -18,6 +19,7 @@ interface AuthButtonProps {
 }
 
 export const AuthButton = ({
+  type,
   onClick,
   isLoading,
   disabled,
@@ -28,6 +30,7 @@ export const AuthButton = ({
 }: AuthButtonProps) => {
   return (
     <Button
+      type={type}
       onClick={onClick}
       disabled={disabled || isLoading}
       variant={variant}

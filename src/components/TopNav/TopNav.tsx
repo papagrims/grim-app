@@ -55,7 +55,7 @@ export const TopNav = () => {
           {user ? (
             <div className="flex items-center gap-2">
               <span className="text-sm text-muted-foreground">
-                Hi, {user.name}
+                Hi, {user.first_name}
               </span>
               <Button variant="outline" size="sm" onClick={signOut}>
                 Sign Out
@@ -111,7 +111,7 @@ export const TopNav = () => {
                 {user ? (
                   <div className="space-y-3">
                     <div className="px-4 py-2">
-                      <p className="text-sm font-medium">{user.name}</p>
+                      <p className="text-sm font-medium">{user.first_name}</p>
                       <p className="text-xs text-muted-foreground">
                         {user.email}
                       </p>

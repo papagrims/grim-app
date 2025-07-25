@@ -6,18 +6,21 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { BottomNav } from "@/components/BottomNav/BottomNav";
 import { TopNav } from "@/components/TopNav/TopNav";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
 import Index from "./pages/Index";
 import Shelves from "./pages/Bookshelf";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
+import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
+import { useAuthStatus } from "./utilities/useAuthStatus";
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const isMobile = useIsMobile();
+  const { isLoading } = useAuth();
 
   const location = useLocation();
   const pathname = location.pathname;
@@ -26,50 +29,57 @@ const AppContent = () => {
 
   return (
     <div className="relative min-h-screen">
-      {!isMobile && !hideNav && <TopNav />}
+      {!isMobile && !hideNav && !isLoading && <TopNav />}
 
       <div className={`${!isMobile ? "" : ""} ${isMobile ? "pb-20" : ""}`}>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/shelves" element={<Shelves />} />
-          <Route path="/profile" element={<Profile />} />
+          {/* Public routes */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route
-            path="/discover"
-            element={
-              <div
-                className={`min-h-screen bg-background ${
-                  isMobile ? "pb-20" : ""
-                } flex items-center justify-center`}
-              >
-                <div className="text-center">
-                  <h1 className="text-2xl font-bold mb-2">Discover</h1>
-                  <p className="text-muted-foreground">Coming Soon</p>
+
+          {/* Protected routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Index />} />
+            <Route path="/shelves" element={<Shelves />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/discover"
+              element={
+                <div
+                  className={`min-h-screen bg-background ${
+                    isMobile ? "pb-20" : ""
+                  } flex items-center justify-center`}
+                >
+                  <div className="text-center">
+                    <h1 className="text-2xl font-bold mb-2">Discover</h1>
+                    <p className="text-muted-foreground">Coming Soon</p>
+                  </div>
                 </div>
-              </div>
-            }
-          />
-          <Route
-            path="/add"
-            element={
-              <div
-                className={`min-h-screen bg-background ${
-                  isMobile ? "pb-20" : ""
-                } flex items-center justify-center`}
-              >
-                <div className="text-center">
-                  <h1 className="text-2xl font-bold mb-2">Add Manga</h1>
-                  <p className="text-muted-foreground">Scan or Search</p>
+              }
+            />
+            <Route
+              path="/add"
+              element={
+                <div
+                  className={`min-h-screen bg-background ${
+                    isMobile ? "pb-20" : ""
+                  } flex items-center justify-center`}
+                >
+                  <div className="text-center">
+                    <h1 className="text-2xl font-bold mb-2">Add Manga</h1>
+                    <p className="text-muted-foreground">Scan or Search</p>
+                  </div>
                 </div>
-              </div>
-            }
-          />
+              }
+            />
+          </Route>
+
+          {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
 
-      {isMobile && !hideNav && <BottomNav />}
+      {isMobile && !hideNav && !isLoading && <BottomNav />}
     </div>
   );
 };

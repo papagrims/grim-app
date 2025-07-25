@@ -4,6 +4,7 @@ import { CollectionChart } from "@/components/CollectionChart/CollectionChart";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { TrendingUp, Zap, Award, BookOpen } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const recentlyRead = [
   {
@@ -64,6 +65,7 @@ const stats = [
 
 export default function Home() {
   const isMobile = useIsMobile();
+  const { user } = useAuth();
 
   return (
     <div className={`min-h-screen bg-background ${isMobile ? "pb-20" : ""}`}>
@@ -80,7 +82,9 @@ export default function Home() {
       >
         {!isMobile && (
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Welcome back, Bradley!</h1>
+            <h1 className="text-3xl font-bold mb-2">
+              Welcome back, {user?.first_name}!
+            </h1>
             <p className="text-muted-foreground text-lg">
               Ready to continue your manga journey?
             </p>
