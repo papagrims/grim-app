@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Header } from "@/components/Header/Header";
 import { BookcaseCarousel } from "@/components/BookcaseCarousel/BookcaseCarousel";
 import { Button } from "@/components/ui/button";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { Plus, Settings, BookOpen, Grid3X3 } from "lucide-react";
 
 // Sample bookcase data
@@ -75,14 +74,8 @@ const sampleBookcases = [
           },
         ],
       },
-      {
-        id: "shelf-1-4",
-        manga: [],
-      },
-      {
-        id: "shelf-1-5",
-        manga: [],
-      },
+      { id: "shelf-1-4", manga: [] },
+      { id: "shelf-1-5", manga: [] },
     ],
   },
   {
@@ -111,22 +104,10 @@ const sampleBookcases = [
           },
         ],
       },
-      {
-        id: "shelf-2-2",
-        manga: [],
-      },
-      {
-        id: "shelf-2-3",
-        manga: [],
-      },
-      {
-        id: "shelf-2-4",
-        manga: [],
-      },
-      {
-        id: "shelf-2-5",
-        manga: [],
-      },
+      { id: "shelf-2-2", manga: [] },
+      { id: "shelf-2-3", manga: [] },
+      { id: "shelf-2-4", manga: [] },
+      { id: "shelf-2-5", manga: [] },
     ],
   },
   {
@@ -155,28 +136,15 @@ const sampleBookcases = [
           },
         ],
       },
-      {
-        id: "shelf-3-2",
-        manga: [],
-      },
-      {
-        id: "shelf-3-3",
-        manga: [],
-      },
-      {
-        id: "shelf-3-4",
-        manga: [],
-      },
-      {
-        id: "shelf-3-5",
-        manga: [],
-      },
+      { id: "shelf-3-2", manga: [] },
+      { id: "shelf-3-3", manga: [] },
+      { id: "shelf-3-4", manga: [] },
+      { id: "shelf-3-5", manga: [] },
     ],
   },
 ];
 
 export default function BookShelf() {
-  const isMobile = useIsMobile();
   const [bookcases, setBookcases] = useState(sampleBookcases);
 
   const handleAddBookcase = () => {
@@ -193,43 +161,29 @@ export default function BookShelf() {
   };
 
   const handleEditBookcase = (bookcaseId: string) => {
-    // TODO: Implement bookcase editing functionality
     console.log("Edit bookcase:", bookcaseId);
   };
 
   return (
-    <div className={`min-h-screen bg-background ${isMobile ? "pb-20" : ""}`}>
-      {isMobile && (
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
+      <div className="md:hidden">
         <Header title="My Library" subtitle="Organize your collection" />
-      )}
+      </div>
 
-      <main
-        className={`${isMobile ? "p-4" : "p-6 lg:p-8"} space-y-6 md:space-y-8`}
-      >
-        {!isMobile && (
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">My Library</h1>
-            <p className="text-muted-foreground text-lg">
-              Organize your manga collection across multiple bookcases
-            </p>
-          </div>
-        )}
+      <main className="p-4 space-y-6 md:space-y-8 md:p-6 lg:p-8">
+        <div className="hidden md:block mb-8">
+          <h1 className="text-3xl font-bold mb-2">My Library</h1>
+          <p className="text-muted-foreground text-lg">
+            Organize your manga collection across multiple bookcases
+          </p>
+        </div>
 
         {/* Stats Section */}
-        <div
-          className={`grid ${
-            isMobile ? "grid-cols-2 gap-3" : "grid-cols-4 gap-6"
-          } mb-8`}
-        >
-          <div
-            className={`mobile-card ${isMobile ? "p-4" : "p-6"} text-center`}
-          >
-            <BookOpen
-              className={`${
-                isMobile ? "w-6 h-6" : "w-8 h-8"
-              } mx-auto mb-2 text-primary`}
-            />
-            <div className={`${isMobile ? "text-lg" : "text-2xl"} font-bold`}>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-6 mb-8">
+          {/* Total Volumes */}
+          <div className="mobile-card p-4 md:p-6 text-center">
+            <BookOpen className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-2 text-primary" />
+            <div className="text-lg md:text-2xl font-bold">
               {bookcases.reduce(
                 (total, bookcase) =>
                   total +
@@ -240,67 +194,40 @@ export default function BookShelf() {
                 0
               )}
             </div>
-            <div
-              className={`${
-                isMobile ? "text-xs" : "text-sm"
-              } text-muted-foreground`}
-            >
+            <div className="text-xs md:text-sm text-muted-foreground">
               Total Volumes
             </div>
           </div>
 
-          <div
-            className={`mobile-card ${isMobile ? "p-4" : "p-6"} text-center`}
-          >
-            <Grid3X3
-              className={`${
-                isMobile ? "w-6 h-6" : "w-8 h-8"
-              } mx-auto mb-2 text-manga-accent`}
-            />
-            <div className={`${isMobile ? "text-lg" : "text-2xl"} font-bold`}>
+          {/* Bookcases */}
+          <div className="mobile-card p-4 md:p-6 text-center">
+            <Grid3X3 className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-2 text-manga-accent" />
+            <div className="text-lg md:text-2xl font-bold">
               {bookcases.length}
             </div>
-            <div
-              className={`${
-                isMobile ? "text-xs" : "text-sm"
-              } text-muted-foreground`}
-            >
+            <div className="text-xs md:text-sm text-muted-foreground">
               Bookcases
             </div>
           </div>
 
-          <div
-            className={`mobile-card ${isMobile ? "p-4" : "p-6"} text-center`}
-          >
-            <Settings
-              className={`${
-                isMobile ? "w-6 h-6" : "w-8 h-8"
-              } mx-auto mb-2 text-success`}
-            />
-            <div className={`${isMobile ? "text-lg" : "text-2xl"} font-bold`}>
+          {/* Total Shelves */}
+          <div className="mobile-card p-4 md:p-6 text-center">
+            <Settings className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-2 text-success" />
+            <div className="text-lg md:text-2xl font-bold">
               {bookcases.reduce(
                 (total, bookcase) => total + bookcase.shelves.length,
                 0
               )}
             </div>
-            <div
-              className={`${
-                isMobile ? "text-xs" : "text-sm"
-              } text-muted-foreground`}
-            >
+            <div className="text-xs md:text-sm text-muted-foreground">
               Total Shelves
             </div>
           </div>
 
-          <div
-            className={`mobile-card ${isMobile ? "p-4" : "p-6"} text-center`}
-          >
-            <Plus
-              className={`${
-                isMobile ? "w-6 h-6" : "w-8 h-8"
-              } mx-auto mb-2 text-reward-gold`}
-            />
-            <div className={`${isMobile ? "text-lg" : "text-2xl"} font-bold`}>
+          {/* Empty Slots */}
+          <div className="mobile-card p-4 md:p-6 text-center">
+            <Plus className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-2 text-reward-gold" />
+            <div className="text-lg md:text-2xl font-bold">
               {bookcases.reduce(
                 (total, bookcase) =>
                   total +
@@ -313,11 +240,7 @@ export default function BookShelf() {
                 0
               )}
             </div>
-            <div
-              className={`${
-                isMobile ? "text-xs" : "text-sm"
-              } text-muted-foreground`}
-            >
+            <div className="text-xs md:text-sm text-muted-foreground">
               Empty Slots
             </div>
           </div>
@@ -332,62 +255,37 @@ export default function BookShelf() {
 
         {/* Quick Actions */}
         <div className="mt-12">
-          <h3
-            className={`${isMobile ? "text-lg" : "text-xl"} font-semibold mb-4`}
-          >
+          <h3 className="text-lg md:text-xl font-semibold mb-4">
             Quick Actions
           </h3>
-          <div
-            className={`grid ${
-              isMobile ? "grid-cols-2 gap-3" : "grid-cols-4 gap-6"
-            }`}
-          >
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-6">
             <Button
               variant="ios"
-              className={`${
-                isMobile ? "h-16 flex-col gap-1" : "h-20 flex-col gap-2"
-              }`}
+              className="h-16 md:h-20 flex-col gap-1 md:gap-2"
             >
               <Plus className="w-5 h-5" />
-              <span className={`${isMobile ? "text-sm" : "text-base"}`}>
-                Add Manga
-              </span>
+              <span className="text-sm md:text-base">Add Manga</span>
             </Button>
-
             <Button
               variant="secondary"
-              className={`${
-                isMobile ? "h-16 flex-col gap-1" : "h-20 flex-col gap-2"
-              } rounded-xl`}
+              className="h-16 md:h-20 flex-col gap-1 md:gap-2 rounded-xl"
             >
               <Settings className="w-5 h-5" />
-              <span className={`${isMobile ? "text-sm" : "text-base"}`}>
-                Organize
-              </span>
+              <span className="text-sm md:text-base">Organize</span>
             </Button>
-
             <Button
               variant="secondary"
-              className={`${
-                isMobile ? "h-16 flex-col gap-1" : "h-20 flex-col gap-2"
-              } rounded-xl`}
+              className="h-16 md:h-20 flex-col gap-1 md:gap-2 rounded-xl"
             >
               <BookOpen className="w-5 h-5" />
-              <span className={`${isMobile ? "text-sm" : "text-base"}`}>
-                Browse
-              </span>
+              <span className="text-sm md:text-base">Browse</span>
             </Button>
-
             <Button
               variant="secondary"
-              className={`${
-                isMobile ? "h-16 flex-col gap-1" : "h-20 flex-col gap-2"
-              } rounded-xl`}
+              className="h-16 md:h-20 flex-col gap-1 md:gap-2 rounded-xl"
             >
               <Grid3X3 className="w-5 h-5" />
-              <span className={`${isMobile ? "text-sm" : "text-base"}`}>
-                View All
-              </span>
+              <span className="text-sm md:text-base">View All</span>
             </Button>
           </div>
         </div>

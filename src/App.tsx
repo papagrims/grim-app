@@ -48,7 +48,7 @@ const AppContent = () => {
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Index user={user} />} />
             <Route path="/shelves" element={<Shelves />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile user={user} />} />
             <Route
               path="/discover"
               element={

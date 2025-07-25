@@ -36,11 +36,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (current) setUser(current);
       setIsLoading(false);
     };
+
     loadUser();
   }, [user]);
 
   const signIn = async (email: string, password: string) => {
     setIsLoading(true);
+    setUser(null);
     try {
       await auth.login(email, password);
       const currentUser = await getCurrentUser();
@@ -59,11 +61,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signOut = () => {
     auth.logout();
     setUser(null);
+    navigate("/signin");
   };
 
   return (
     <AuthContext.Provider value={{ user, isLoading, signIn, signOut }}>
-      {isLoading ? null : children} {/* ✅ block rendering until ready */}
+      {isLoading ? null : children}
     </AuthContext.Provider>
   );
 };
