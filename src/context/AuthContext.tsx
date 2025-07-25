@@ -1,25 +1,26 @@
-import React, {
+// AuthContext.tsx
+
+import {
   createContext,
   useContext,
   useEffect,
   useState,
   ReactNode,
 } from "react";
-import * as auth from "@/lib/auth";
 
-interface User {
-  id: string;
-  email?: string;
-  first_name?: string;
-  last_name?: string;
-}
+import * as auth from "@/lib/auth"; // your login/logout logic
+import { getCurrentUser } from "@/lib/auth";
+import { User } from "@/lib/directus";
+import { useNavigate } from "react-router-dom";
 
-interface AuthContextType {
+export const TOKEN_KEY = "auth-token";
+
+type AuthContextType = {
   user: User | null;
-  signIn: (email: string, password: string) => Promise<void>;
-  signOut: () => Promise<void>;
   isLoading: boolean;
-}
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => void;
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -27,45 +28,48 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const init = async () => {
-      setIsLoading(true);
-      try {
-        const currentUser = await auth.getCurrentUser();
-        setUser(currentUser);
-      } catch {
-        setUser(null);
-      } finally {
-        setIsLoading(false);
-      }
+    const loadUser = async () => {
+      const current = await getCurrentUser();
+      if (current) setUser(current);
+      setIsLoading(false);
     };
-    init();
-  }, []);
+    loadUser();
+  }, [user]);
 
   const signIn = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const loggedInUser = await auth.login(email, password);
-      setUser(loggedInUser);
+      await auth.login(email, password);
+      const currentUser = await getCurrentUser();
+
+      if (!currentUser) {
+        throw new Error("Failed to fetch user");
+      }
+
+      setUser(currentUser);
+      navigate("/");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const signOut = async () => {
-    await auth.logout();
+  const signOut = () => {
+    auth.logout();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut, isLoading }}>
-      {children}
+    <AuthContext.Provider value={{ user, isLoading, signIn, signOut }}>
+      {isLoading ? null : children} {/* ✅ block rendering until ready */}
     </AuthContext.Provider>
   );
 };
 
-export function useAuth() {
+export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be used within an AuthProvider");
+  if (!context) throw new Error("useAuth must be used within AuthProvider");
   return context;
-}
+};

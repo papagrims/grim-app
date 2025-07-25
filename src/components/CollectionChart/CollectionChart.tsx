@@ -11,6 +11,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const collectionData = [
   { name: "Manga", value: 45, fill: "hsl(var(--primary))" },
@@ -38,21 +39,18 @@ const chartConfig = {
   },
 };
 
-interface CollectionChartProps {
-  isMobile?: boolean;
-}
+interface CollectionChartProps {}
 
-export const CollectionChart = ({ isMobile = false }: CollectionChartProps) => {
+export const CollectionChart = ({}: CollectionChartProps) => {
+  const isMobile = useIsMobile();
+
   return (
-    <div className={`mobile-card ${isMobile ? "p-4" : "p-6"}`}>
-      <h3 className={`${isMobile ? "text-lg" : "text-xl"} font-semibold mb-4`}>
+    <div className="mobile-card p-4 md:p-6">
+      <h3 className="text-lg md:text-xl font-semibold mb-4">
         Collection Breakdown
       </h3>
 
-      <ChartContainer
-        config={chartConfig}
-        className={`${isMobile ? "h-48" : "h-64"} w-full`}
-      >
+      <ChartContainer config={chartConfig} className="h-48 md:h-64 w-full">
         <PieChart>
           <ChartTooltip
             cursor={false}

@@ -14,24 +14,31 @@ import NotFound from "./pages/NotFound";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
-import { useAuthStatus } from "./utilities/useAuthStatus";
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const isMobile = useIsMobile();
-  const { isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
 
   const location = useLocation();
   const pathname = location.pathname;
 
   const hideNav = pathname === "/signin" || pathname === "/signup";
 
+  if (isLoading && !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <span className="text-muted-foreground">Loading...</span>
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen">
-      {!isMobile && !hideNav && !isLoading && <TopNav />}
+      {!hideNav && <TopNav user={user} />}
 
-      <div className={`${!isMobile ? "" : ""} ${isMobile ? "pb-20" : ""}`}>
+      <div className={`${isMobile ? "pb-20" : ""}`}>
         <Routes>
           {/* Public routes */}
           <Route path="/signin" element={<SignIn />} />
@@ -39,7 +46,7 @@ const AppContent = () => {
 
           {/* Protected routes */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Index user={user} />} />
             <Route path="/shelves" element={<Shelves />} />
             <Route path="/profile" element={<Profile />} />
             <Route
@@ -79,7 +86,7 @@ const AppContent = () => {
         </Routes>
       </div>
 
-      {isMobile && !hideNav && !isLoading && <BottomNav />}
+      {isMobile && !hideNav && <BottomNav user={user} />}
     </div>
   );
 };

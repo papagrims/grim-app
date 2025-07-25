@@ -8,9 +8,9 @@ const navItems = [
   { icon: User, label: "Profile", path: "/profile" },
 ];
 
-export const BottomNav = () => {
+export const BottomNav = ({}: any) => {
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 max-w-sm mx-auto">
+    <div className="fixed md:hidden bottom-4 left-4 right-4 z-50 max-w-sm mx-auto">
       <div className="bg-background/90 backdrop-blur-xl border border-border rounded-2xl px-4 py-3 shadow-2xl">
         <div className="flex items-center justify-between">
           {navItems.map(({ icon: Icon, label, path }) => (

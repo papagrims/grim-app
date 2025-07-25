@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,7 @@ export const SignIn = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -37,7 +37,6 @@ export const SignIn = () => {
         title: "Welcome back!",
         description: "You have successfully signed in.",
       });
-      navigate("/");
     } catch (error) {
       toast({
         title: "Sign in failed",
@@ -47,6 +46,8 @@ export const SignIn = () => {
       });
     } finally {
       setIsLoading(false);
+
+      navigate("/");
     }
   };
 
@@ -93,7 +94,7 @@ export const SignIn = () => {
       <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
     </svg>
   );
-  console.log(API);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted">
       <Card className="w-full max-w-md">
