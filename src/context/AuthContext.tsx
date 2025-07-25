@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(true);
     const loadUser = async () => {
       const current = await getCurrentUser();
       if (current) setUser(current);
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     loadUser();
-  }, [user]);
+  }, []);
 
   const signIn = async (email: string, password: string) => {
     setIsLoading(true);
@@ -52,7 +53,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
 
       setUser(currentUser);
-      navigate("/");
     } finally {
       setIsLoading(false);
     }

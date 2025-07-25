@@ -38,7 +38,7 @@ const AppContent = () => {
     <div className="relative min-h-screen">
       {!hideNav && <TopNav user={user} />}
 
-      <div className={`${isMobile ? "pb-20" : ""}`}>
+      <div className={hideNav ? "pb-0" : "pb-20 md:pb-0"}>
         <Routes>
           {/* Public routes */}
           <Route path="/signin" element={<SignIn />} />
@@ -52,11 +52,7 @@ const AppContent = () => {
             <Route
               path="/discover"
               element={
-                <div
-                  className={`min-h-screen bg-background ${
-                    isMobile ? "pb-20" : ""
-                  } flex items-center justify-center`}
-                >
+                <div className="min-h-screen bg-background pb-20 md:pb-0 flex items-center justify-center">
                   <div className="text-center">
                     <h1 className="text-2xl font-bold mb-2">Discover</h1>
                     <p className="text-muted-foreground">Coming Soon</p>
@@ -67,11 +63,7 @@ const AppContent = () => {
             <Route
               path="/add"
               element={
-                <div
-                  className={`min-h-screen bg-background ${
-                    isMobile ? "pb-20" : ""
-                  } flex items-center justify-center`}
-                >
+                <div className="min-h-screen bg-background pb-20 md:pb-0 flex items-center justify-center">
                   <div className="text-center">
                     <h1 className="text-2xl font-bold mb-2">Add Manga</h1>
                     <p className="text-muted-foreground">Scan or Search</p>

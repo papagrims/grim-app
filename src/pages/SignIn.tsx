@@ -15,7 +15,6 @@ import { Separator } from "@/components/ui/separator";
 import { AuthButton } from "@/components/AuthButton/AuthButton";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff } from "lucide-react";
-import { API } from "@/lib/constants";
 
 // Social icons (GoogleIcon and XIcon)...
 
@@ -47,7 +46,7 @@ export const SignIn = () => {
     } finally {
       setIsLoading(false);
 
-      navigate("/");
+      window.location.href = "/";
     }
   };
 
@@ -97,7 +96,7 @@ export const SignIn = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted">
-      <Card className="w-full max-w-md">
+      <Card className="!rounded-none !border-none !bg-[transparent] !shadow-none w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
           <CardDescription>Sign in to your manga collection</CardDescription>
